@@ -1,12 +1,11 @@
 package v1.foodDeliveryPlatform.service;
 
-import java.util.UUID;
+import v1.foodDeliveryPlatform.model.DishImage;
+
 
 public interface MinioService {
 
-    String generateUploadUrl(String fileName) throws Exception;
-
     void deleteFile(String fileName) throws Exception;
 
-    String generateFileName(UUID dishId, String originalFileName);
+    String upload(DishImage image);
 }

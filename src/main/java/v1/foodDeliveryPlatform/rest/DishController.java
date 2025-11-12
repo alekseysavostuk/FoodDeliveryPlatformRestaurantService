@@ -7,9 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import v1.foodDeliveryPlatform.dto.minio.DishImageDto;
 import v1.foodDeliveryPlatform.dto.model.DishDto;
 import v1.foodDeliveryPlatform.dto.validation.OnUpdate;
 import v1.foodDeliveryPlatform.facade.DishFacade;
+import v1.foodDeliveryPlatform.mapper.TaskImageMapper;
+import v1.foodDeliveryPlatform.service.DishService;
 
 import java.util.UUID;
 
@@ -23,6 +26,8 @@ import java.util.UUID;
 public class DishController {
 
     private final DishFacade dishFacade;
+    private final TaskImageMapper taskImageMapper;
+    private final DishService dishService;
 
     @GetMapping("/{id}")
     @Operation(summary = "Get dish by id")
@@ -45,5 +50,14 @@ public class DishController {
             @Validated(OnUpdate.class)
             @RequestBody DishDto dishDto) {
         return new ResponseEntity<>(dishFacade.updateDish(dishDto), HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/image")
+    @Operation(summary = "Upload image to dish")
+    public ResponseEntity<DishDto> uploadImage(
+            @PathVariable final UUID id,
+            @Validated @ModelAttribute final DishImageDto imageDto
+    ) {
+        return new ResponseEntity<>(dishFacade.uploadImage(id, imageDto), HttpStatus.OK);
     }
 }

@@ -1,14 +1,18 @@
 package v1.foodDeliveryPlatform.service.impl;
 
 import io.minio.*;
-import io.minio.http.Method;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import v1.foodDeliveryPlatform.exception.ImageUploadException;
+import v1.foodDeliveryPlatform.model.DishImage;
 import v1.foodDeliveryPlatform.props.MinioProperties;
 import v1.foodDeliveryPlatform.service.MinioService;
 
+import java.io.InputStream;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -19,36 +23,28 @@ public class MinioServiceImpl implements MinioService {
     private final MinioClient minioClient;
     private final MinioProperties minioProperties;
 
-    @PostConstruct
-    public void init() {
-        try {
-            boolean found = minioClient.bucketExists(BucketExistsArgs.builder()
-                    .bucket(minioProperties.getBucket())
-                    .build());
-            if (!found) {
-                minioClient.makeBucket(MakeBucketArgs.builder()
-                        .bucket(minioProperties.getBucket())
-                        .build());
-                log.info("MinIO bucket '{}' created successfully", minioProperties.getBucket());
-            } else {
-                log.info("MinIO bucket '{}' already exists", minioProperties.getBucket());
-            }
-        } catch (Exception e) {
-            log.warn("Failed to initialize MinIO client: {}", e.getMessage());
-            log.warn("MinIO operations will be disabled. Error: {}", e.getClass().getSimpleName());
-        }
-    }
-
     @Override
-    public String generateUploadUrl(String fileName) throws Exception {
-        return minioClient.getPresignedObjectUrl(
-                GetPresignedObjectUrlArgs.builder()
-                        .method(Method.PUT)
-                        .bucket(minioProperties.getBucket())
-                        .object(fileName)
-                        .expiry(60 * 60)
-                        .build()
-        );
+    public String upload(DishImage image) {
+        try {
+            createBucket();
+        } catch (Exception e) {
+            throw new ImageUploadException("Image upload failed: "
+                    + e.getMessage());
+        }
+        MultipartFile file = image.getFile();
+        if (file.isEmpty() || file.getOriginalFilename() == null) {
+            throw new ImageUploadException("Image must have name.");
+        }
+        String fileName = GenerateFileName(file);
+        InputStream inputStream;
+        try {
+            inputStream = file.getInputStream();
+        } catch (Exception e) {
+            throw new ImageUploadException("Image upload failed: "
+                    + e.getMessage());
+        }
+        saveImage(inputStream, fileName);
+        return fileName;
     }
 
     @Override
@@ -61,17 +57,42 @@ public class MinioServiceImpl implements MinioService {
         );
     }
 
-    @Override
-    public String generateFileName(UUID dishId, String originalFileName) {
-        String timestamp = String.valueOf(System.currentTimeMillis());
-        String random = UUID.randomUUID().toString().substring(0, 8);
-        String extension = getFileExtension(originalFileName);
-
-        return "dishes/" + dishId + "/" + timestamp + "-" + random + extension;
+    @SneakyThrows
+    private void createBucket() {
+        boolean found = minioClient.bucketExists(BucketExistsArgs.builder()
+                .bucket(minioProperties.getBucket())
+                .build());
+        if (!found) {
+            minioClient.makeBucket(MakeBucketArgs.builder()
+                    .bucket(minioProperties.getBucket())
+                    .build());
+        }
     }
 
-    private String getFileExtension(String fileName) {
-        int lastDotIndex = fileName.lastIndexOf(".");
-        return (lastDotIndex > 0) ? fileName.substring(lastDotIndex) : ".jpg";
+    private String GenerateFileName(
+            final MultipartFile file
+    ) {
+        String extension = getExtension(file);
+        return UUID.randomUUID() + "." + extension;
+    }
+
+    private String getExtension(
+            final MultipartFile file
+    ) {
+        return Objects.requireNonNull(file.getOriginalFilename())
+                .substring(file.getOriginalFilename()
+                        .lastIndexOf(".") + 1);
+    }
+
+    @SneakyThrows
+    private void saveImage(
+            final InputStream inputStream,
+            final String fileName
+    ) {
+        minioClient.putObject(PutObjectArgs.builder()
+                .stream(inputStream, inputStream.available(), -1)
+                .bucket(minioProperties.getBucket())
+                .object(fileName)
+                .build());
     }
 }

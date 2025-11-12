@@ -6,11 +6,13 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import v1.foodDeliveryPlatform.exception.ModelExistsException;
 import v1.foodDeliveryPlatform.model.Dish;
+import v1.foodDeliveryPlatform.model.DishImage;
 import v1.foodDeliveryPlatform.repository.DishRepository;
 import v1.foodDeliveryPlatform.service.DishService;
 import v1.foodDeliveryPlatform.service.MinioService;
 import v1.foodDeliveryPlatform.service.RestaurantService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -61,5 +63,19 @@ public class DishServiceImpl implements DishService {
         }
         dishRepository.deleteImagesByDishId(id);
         dishRepository.deleteDirectlyById(id);
+    }
+
+    @Override
+    @Transactional
+    public Dish uploadImage(
+            final UUID id,
+            final DishImage image
+    ) {
+        Dish dish = getById(id);
+        String fileName = minioService.upload(image);
+        List<String> images = new ArrayList<>(dish.getImages());
+        images.add(fileName);
+        dish.setImages(images);
+        return dishRepository.save(dish);
     }
 }

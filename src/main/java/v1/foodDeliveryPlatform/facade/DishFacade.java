@@ -1,5 +1,6 @@
 package v1.foodDeliveryPlatform.facade;
 
+import v1.foodDeliveryPlatform.dto.minio.DishImageDto;
 import v1.foodDeliveryPlatform.dto.model.DishDto;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface DishFacade {
     DishDto updateDish(DishDto dishDto);
 
     void delete(UUID id);
+
+    DishDto uploadImage(UUID id, DishImageDto image);
 }

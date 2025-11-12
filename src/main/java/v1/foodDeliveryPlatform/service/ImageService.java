@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ImageService {
-    Dish setImagesByDishId(UUID dishId, List<String> images);
 
     Dish removeImageByDishId(UUID dishId, String image) throws Exception;
 

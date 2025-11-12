@@ -22,16 +22,6 @@ public class ImageServiceImpl implements ImageService {
     private final MinioService minioService;
 
     @Override
-    public Dish setImagesByDishId(UUID dishId, List<String> images) {
-        Dish dish = dishService.getById(dishId);
-        List<String> updatedImages = new ArrayList<>(dish.getImages());
-        updatedImages.addAll(images);
-        dish.setImages(updatedImages);
-        dishRepository.save(dish);
-        return dish;
-    }
-
-    @Override
     public Dish removeImageByDishId(UUID dishId, String image) throws Exception {
         Dish dish = dishService.getById(dishId);
 
@@ -60,6 +50,4 @@ public class ImageServiceImpl implements ImageService {
     public List<String> getAllByDishId(UUID dishId) {
         return dishService.getById(dishId).getImages();
     }
-
-
 }
