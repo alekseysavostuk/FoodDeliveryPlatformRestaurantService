@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-dish-images-table
+      author: your_name
+      changes:
+        - createTable:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_dish_images_dish
+                    references: dish(id)
+                    onDelete: CASCADE
+                    onUpdate: CASCADE
+              - column:
+                  name: image
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

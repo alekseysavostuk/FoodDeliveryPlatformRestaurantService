@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-restaurant-table
+      author: Aleksey
+      changes:
+        - createTable:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cuisine
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

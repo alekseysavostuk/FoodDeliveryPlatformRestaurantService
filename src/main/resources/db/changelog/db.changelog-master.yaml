@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: changeset/create-restaurant-table.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changeset/create-dish-table.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changeset/create-dish-images-table.yaml
+      relativeToChangelogFile: true
