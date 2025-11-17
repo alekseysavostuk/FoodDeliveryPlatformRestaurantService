@@ -50,4 +50,9 @@ public class RestaurantFacadeImpl implements RestaurantFacade {
         List<Restaurant> restaurants = restaurantService.getAllByCuisine(cuisine);
         return restaurants.stream().map(mapper::toDto).collect(Collectors.toList());
     }
+
+    @Override
+    public boolean existsRestaurant(UUID id) {
+        return restaurantService.existsRestaurant(id);
+    }
 }

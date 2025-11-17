@@ -19,4 +19,6 @@ public interface DishFacade {
     void delete(UUID id);
 
     DishDto uploadImage(UUID id, DishImageDto image);
+
+    boolean existsDish(UUID restaurantId, UUID dishId);
 }

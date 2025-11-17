@@ -41,6 +41,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    public boolean existsRestaurant(UUID id) {
+        return restaurantRepository.findById(id).isPresent();
+    }
+
+    @Override
     public Restaurant updateRestaurant(Restaurant restaurant) {
         Restaurant currentRestaurant = getById(restaurant.getId());
         currentRestaurant.setName(restaurant.getName());

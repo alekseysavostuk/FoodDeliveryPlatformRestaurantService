@@ -18,4 +18,6 @@ public interface RestaurantFacade {
     void delete(UUID id);
 
     List<RestaurantDto> getAllByCuisine(String cuisine);
+
+    boolean existsRestaurant(UUID id);
 }

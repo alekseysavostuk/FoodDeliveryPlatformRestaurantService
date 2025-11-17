@@ -53,4 +53,9 @@ public class DishFacadeImpl implements DishFacade {
     public DishDto uploadImage(UUID id, DishImageDto image) {
         return mapper.toDto(dishService.uploadImage(id, taskImageMapper.toEntity(image)));
     }
+
+    @Override
+    public boolean existsDish(UUID restaurantId, UUID dishId) {
+        return dishService.existsDish(restaurantId, dishId);
+    }
 }

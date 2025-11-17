@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import v1.foodDeliveryPlatform.dto.model.DishDto;
 import v1.foodDeliveryPlatform.facade.ImageFacade;
@@ -25,6 +26,7 @@ public class ImageController {
 
     @GetMapping
     @Operation(summary = "Get dish images by dish id")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<List<String>> getImages(
             @PathVariable final UUID dishId) {
 
@@ -33,6 +35,7 @@ public class ImageController {
 
     @DeleteMapping
     @Operation(summary = "Remove specific image by dish id")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER')")
     public ResponseEntity<DishDto> removeImage(
             @PathVariable final UUID dishId,
             @RequestParam String image) throws Exception {
@@ -42,6 +45,7 @@ public class ImageController {
 
     @DeleteMapping("/all")
     @Operation(summary = "Remove all images by dish id")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER')")
     public ResponseEntity<DishDto> removeAllImages(
             @PathVariable final UUID dishId) {
 

@@ -18,4 +18,6 @@ public interface DishService {
     void delete(UUID id);
 
     Dish uploadImage(UUID id, DishImage image);
+
+    boolean existsDish(UUID restaurantId, UUID dishId);
 }

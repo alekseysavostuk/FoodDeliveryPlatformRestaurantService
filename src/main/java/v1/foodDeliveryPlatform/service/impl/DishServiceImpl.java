@@ -78,4 +78,10 @@ public class DishServiceImpl implements DishService {
         dish.setImages(images);
         return dishRepository.save(dish);
     }
+
+    @Override
+    public boolean existsDish(UUID restaurantId, UUID dishId) {
+        return dishRepository.findById(dishId).isPresent()
+                && getById(dishId).getRestaurant().getId().equals(restaurantId);
+    }
 }
