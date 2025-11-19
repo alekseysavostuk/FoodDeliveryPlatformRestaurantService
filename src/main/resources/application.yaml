@@ -1,4 +1,16 @@
 spring:
+  data:
+    redis:
+      host: redis-restaurants
+      port: 6379
+      password: ${REDIS_RESTAURANTS_PASSWORD}
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+      cache-null-values: false
+      key-prefix: "app:"
+      use-key-prefix: true
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml

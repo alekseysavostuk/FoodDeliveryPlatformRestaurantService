@@ -1,9 +1,12 @@
 package v1.foodDeliveryPlatform.service.impl;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import v1.foodDeliveryPlatform.exception.ResourceNotFoundException;
 import v1.foodDeliveryPlatform.model.Dish;
 import v1.foodDeliveryPlatform.model.DishImage;
@@ -26,12 +29,15 @@ public class DishServiceImpl implements DishService {
     private final MinioService minioService;
 
     @Override
+    @Transactional
+    @Cacheable(value = "dishes", key = "#id")
     public Dish getById(UUID id) {
         return dishRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Dish not found"));
     }
 
     @Override
+    @Transactional
     public Dish createDish(Dish dish, UUID restaurantId) {
         dish.setRestaurant(restaurantService.getById(restaurantId));
         dishRepository.save(dish);
@@ -40,11 +46,17 @@ public class DishServiceImpl implements DishService {
 
     @Override
     @Transactional
+    @Cacheable(value = "restaurant_dishes", key = "#restaurantId")
     public List<Dish> getAllByRestaurantId(UUID restaurantId) {
         return dishRepository.findAllByRestaurantId(restaurantId);
     }
 
     @Override
+    @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "dishes", key = "#dish.id"),
+            @CacheEvict(value = "restaurant_dishes", key = "#result.restaurant.id")
+    })
     public Dish updateDish(Dish dish) {
         Dish currentDish = getById(dish.getId());
         currentDish.setName(dish.getName());
@@ -57,6 +69,10 @@ public class DishServiceImpl implements DishService {
     @SneakyThrows
     @Override
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "dishes", key = "#id"),
+            @CacheEvict(value = "restaurant_dishes", allEntries = true)
+    })
     public void delete(UUID id) {
         Dish dish = getById(id);
         for (String image : dish.getImages()) {
@@ -68,6 +84,10 @@ public class DishServiceImpl implements DishService {
 
     @Override
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "dishes", key = "#id"),
+            @CacheEvict(value = "restaurant_dishes", key = "#result.restaurant.id")
+    })
     public Dish uploadImage(
             final UUID id,
             final DishImage image

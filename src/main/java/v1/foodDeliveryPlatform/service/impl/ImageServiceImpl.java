@@ -2,7 +2,11 @@ package v1.foodDeliveryPlatform.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import v1.foodDeliveryPlatform.model.Dish;
 import v1.foodDeliveryPlatform.repository.DishRepository;
 import v1.foodDeliveryPlatform.service.DishService;
@@ -22,6 +26,11 @@ public class ImageServiceImpl implements ImageService {
     private final MinioService minioService;
 
     @Override
+    @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "dishes", key = "#dishId"),
+            @CacheEvict(value = "restaurant_dishes", allEntries = true)
+    })
     public Dish removeImageByDishId(UUID dishId, String image) throws Exception {
         Dish dish = dishService.getById(dishId);
 
@@ -36,7 +45,12 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    @Transactional
     @SneakyThrows
+    @Caching(evict = {
+            @CacheEvict(value = "dishes", key = "#dishId"),
+            @CacheEvict(value = "restaurant_dishes", allEntries = true)
+    })
     public Dish removeAllImagesByDishId(UUID dishId) {
         Dish dish = dishService.getById(dishId);
         for (String image : dish.getImages()) {
@@ -47,6 +61,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    @Cacheable(value = "dish_images", key = "#dishId")
     public List<String> getAllByDishId(UUID dishId) {
         return dishService.getById(dishId).getImages();
     }
