@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import v1.foodDeliveryPlatform.dto.minio.DishImageDto;
 import v1.foodDeliveryPlatform.dto.model.DishDto;
+import v1.foodDeliveryPlatform.dto.model.feign.DishClientDto;
 import v1.foodDeliveryPlatform.facade.DishFacade;
+import v1.foodDeliveryPlatform.mapper.DishClientMapper;
 import v1.foodDeliveryPlatform.mapper.DishMapper;
 import v1.foodDeliveryPlatform.mapper.TaskImageMapper;
 import v1.foodDeliveryPlatform.model.Dish;
@@ -22,6 +24,7 @@ public class DishFacadeImpl implements DishFacade {
     private final DishService dishService;
     private final DishMapper mapper;
     private final TaskImageMapper taskImageMapper;
+    private final DishClientMapper dishClientMapper;
 
     @Override
     public DishDto getById(UUID id) {
@@ -57,5 +60,10 @@ public class DishFacadeImpl implements DishFacade {
     @Override
     public boolean existsDish(UUID restaurantId, UUID dishId) {
         return dishService.existsDish(restaurantId, dishId);
+    }
+
+    @Override
+    public DishClientDto getNameById(UUID id) {
+        return dishClientMapper.toDto(dishService.getNameById(id));
     }
 }

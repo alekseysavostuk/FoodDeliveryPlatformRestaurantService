@@ -3,7 +3,9 @@ package v1.foodDeliveryPlatform.facade.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import v1.foodDeliveryPlatform.dto.model.RestaurantDto;
+import v1.foodDeliveryPlatform.dto.model.feign.RestaurantClientDto;
 import v1.foodDeliveryPlatform.facade.RestaurantFacade;
+import v1.foodDeliveryPlatform.mapper.RestaurantClientMapper;
 import v1.foodDeliveryPlatform.mapper.RestaurantMapper;
 import v1.foodDeliveryPlatform.model.Restaurant;
 import v1.foodDeliveryPlatform.service.RestaurantService;
@@ -18,6 +20,7 @@ public class RestaurantFacadeImpl implements RestaurantFacade {
 
     private final RestaurantService restaurantService;
     private final RestaurantMapper mapper;
+    private final RestaurantClientMapper restaurantClientMapper;
 
     @Override
     public RestaurantDto getById(UUID id) {
@@ -54,5 +57,10 @@ public class RestaurantFacadeImpl implements RestaurantFacade {
     @Override
     public boolean existsRestaurant(UUID id) {
         return restaurantService.existsRestaurant(id);
+    }
+
+    @Override
+    public RestaurantClientDto getNameById(UUID id) {
+        return restaurantClientMapper.toDto(restaurantService.getNameById(id));
     }
 }

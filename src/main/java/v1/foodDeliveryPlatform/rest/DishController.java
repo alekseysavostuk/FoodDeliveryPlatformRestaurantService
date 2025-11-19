@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import v1.foodDeliveryPlatform.dto.minio.DishImageDto;
 import v1.foodDeliveryPlatform.dto.model.DishDto;
+import v1.foodDeliveryPlatform.dto.model.feign.DishClientDto;
 import v1.foodDeliveryPlatform.dto.validation.OnUpdate;
 import v1.foodDeliveryPlatform.facade.DishFacade;
 
@@ -60,5 +61,12 @@ public class DishController {
             @Validated @ModelAttribute final DishImageDto imageDto
     ) {
         return new ResponseEntity<>(dishFacade.uploadImage(id, imageDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/name")
+    @Operation(summary = "Get dish name")
+    @PreAuthorize("isAuthenticated()")
+    public DishClientDto getDishName(@PathVariable final UUID id) {
+        return dishFacade.getNameById(id);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import v1.foodDeliveryPlatform.dto.model.DishDto;
 import v1.foodDeliveryPlatform.dto.model.RestaurantDto;
+import v1.foodDeliveryPlatform.dto.model.feign.RestaurantClientDto;
 import v1.foodDeliveryPlatform.dto.validation.OnCreate;
 import v1.foodDeliveryPlatform.dto.validation.OnUpdate;
 import v1.foodDeliveryPlatform.facade.DishFacade;
@@ -112,5 +113,12 @@ public class RestaurantController {
     public boolean existsDish(@PathVariable final UUID restaurantId,
                               @PathVariable final UUID dishId) {
         return dishFacade.existsDish(restaurantId, dishId);
+    }
+
+    @GetMapping("/{id}/name")
+    @Operation(summary = "Get restaurant name")
+    @PreAuthorize("isAuthenticated()")
+    public RestaurantClientDto getRestaurantName(@PathVariable final UUID id) {
+        return restaurantFacade.getNameById(id);
     }
 }

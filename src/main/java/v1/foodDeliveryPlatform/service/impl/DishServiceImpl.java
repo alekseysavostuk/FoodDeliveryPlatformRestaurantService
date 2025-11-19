@@ -4,9 +4,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
-import v1.foodDeliveryPlatform.exception.ModelExistsException;
+import v1.foodDeliveryPlatform.exception.ResourceNotFoundException;
 import v1.foodDeliveryPlatform.model.Dish;
 import v1.foodDeliveryPlatform.model.DishImage;
+import v1.foodDeliveryPlatform.model.feign.DishClient;
 import v1.foodDeliveryPlatform.repository.DishRepository;
 import v1.foodDeliveryPlatform.service.DishService;
 import v1.foodDeliveryPlatform.service.MinioService;
@@ -27,7 +28,7 @@ public class DishServiceImpl implements DishService {
     @Override
     public Dish getById(UUID id) {
         return dishRepository.findById(id).orElseThrow(() ->
-                new ModelExistsException("Dish not found"));
+                new ResourceNotFoundException("Dish not found"));
     }
 
     @Override
@@ -83,5 +84,10 @@ public class DishServiceImpl implements DishService {
     public boolean existsDish(UUID restaurantId, UUID dishId) {
         return dishRepository.findById(dishId).isPresent()
                 && getById(dishId).getRestaurant().getId().equals(restaurantId);
+    }
+
+    @Override
+    public DishClient getNameById(UUID id) {
+        return new DishClient(dishRepository.findById(id).get().getName());
     }
 }

@@ -1,6 +1,7 @@
 package v1.foodDeliveryPlatform.service;
 
 import v1.foodDeliveryPlatform.model.Restaurant;
+import v1.foodDeliveryPlatform.model.feign.RestaurantClient;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,4 +21,6 @@ public interface RestaurantService {
     List<Restaurant> getAllByCuisine(String cuisine);
 
     boolean existsRestaurant(UUID id);
+
+    RestaurantClient getNameById(UUID id);
 }

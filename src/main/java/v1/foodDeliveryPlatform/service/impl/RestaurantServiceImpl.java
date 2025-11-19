@@ -3,8 +3,9 @@ package v1.foodDeliveryPlatform.service.impl;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import v1.foodDeliveryPlatform.exception.ModelExistsException;
+import v1.foodDeliveryPlatform.exception.ResourceNotFoundException;
 import v1.foodDeliveryPlatform.model.Restaurant;
+import v1.foodDeliveryPlatform.model.feign.RestaurantClient;
 import v1.foodDeliveryPlatform.repository.RestaurantRepository;
 import v1.foodDeliveryPlatform.service.RestaurantService;
 
@@ -20,7 +21,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Restaurant getById(UUID id) {
         return restaurantRepository.findById(id).orElseThrow(() ->
-                new ModelExistsException("Restaurant not found"));
+                new ResourceNotFoundException("Restaurant not found"));
     }
 
     @Override
@@ -43,6 +44,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public boolean existsRestaurant(UUID id) {
         return restaurantRepository.findById(id).isPresent();
+    }
+
+    @Override
+    public RestaurantClient getNameById(UUID id) {
+        return new RestaurantClient(restaurantRepository.findById(id).get().getName());
     }
 
     @Override
