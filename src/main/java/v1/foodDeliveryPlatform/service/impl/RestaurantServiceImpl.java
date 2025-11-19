@@ -1,6 +1,7 @@
 package v1.foodDeliveryPlatform.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
@@ -25,41 +27,63 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Transactional
     @Cacheable(value = "restaurants", key = "#id")
     public Restaurant getById(UUID id) {
-        return restaurantRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Restaurant not found"));
+        log.debug("Fetching restaurant by ID: {}", id);
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(() -> {
+            log.warn("Restaurant not found with ID: {}", id);
+            return new ResourceNotFoundException("Restaurant not found");
+        });
+        log.debug("Successfully fetched restaurant: {} ({})", restaurant.getName(), restaurant.getId());
+        return restaurant;
     }
 
     @Override
     @Transactional
     public Restaurant createRestaurant(Restaurant restaurant) {
-        restaurantRepository.save(restaurant);
-        return restaurant;
+        log.info("Creating new restaurant: {}", restaurant.getName());
+        Restaurant savedRestaurant = restaurantRepository.save(restaurant);
+        log.info("Restaurant created successfully: {} ({})", savedRestaurant.getName(), savedRestaurant.getId());
+        return savedRestaurant;
     }
 
     @Override
     @Transactional
     @Cacheable(value = "all_restaurants")
     public List<Restaurant> getAllRestaurants() {
-        return restaurantRepository.findAll();
+        log.debug("Fetching all restaurants");
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        log.debug("Found {} restaurants", restaurants.size());
+        return restaurants;
     }
 
     @Override
     @Transactional
     @Cacheable(value = "restaurants_by_cuisine", key = "#cuisine")
     public List<Restaurant> getAllByCuisine(String cuisine) {
-        return restaurantRepository.findAllByCuisine(cuisine);
+        log.debug("Fetching restaurants by cuisine: {}", cuisine);
+        List<Restaurant> restaurants = restaurantRepository.findAllByCuisine(cuisine);
+        log.debug("Found {} restaurants with cuisine: {}", restaurants.size(), cuisine);
+        return restaurants;
     }
 
     @Override
     @Transactional
     public boolean existsRestaurant(UUID id) {
-        return restaurantRepository.findById(id).isPresent();
+        log.trace("Checking if restaurant exists: {}", id);
+        boolean exists = restaurantRepository.findById(id).isPresent();
+        log.trace("Restaurant existence check for {}: {}", id, exists);
+        return exists;
     }
 
     @Override
     @Transactional
     public RestaurantClient getNameById(UUID id) {
-        return new RestaurantClient(restaurantRepository.findById(id).get().getName());
+        log.debug("Fetching restaurant name by ID: {}", id);
+        Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(() -> {
+            log.warn("Restaurant not found when fetching name for ID: {}", id);
+            return new ResourceNotFoundException("Restaurant not found");
+        });
+        log.debug("Fetched restaurant name: {} for ID: {}", restaurant.getName(), id);
+        return new RestaurantClient(restaurant.getName());
     }
 
     @Override
@@ -70,12 +94,23 @@ public class RestaurantServiceImpl implements RestaurantService {
             @CacheEvict(value = "restaurants_by_cuisine", allEntries = true),
     })
     public Restaurant updateRestaurant(Restaurant restaurant) {
+        log.info("Updating restaurant with ID: {}", restaurant.getId());
+
         Restaurant currentRestaurant = getById(restaurant.getId());
+
+        log.debug("Restaurant update details - Name: {} -> {}, Cuisine: {} -> {}, Address: {} -> {}",
+                currentRestaurant.getName(), restaurant.getName(),
+                currentRestaurant.getCuisine(), restaurant.getCuisine(),
+                currentRestaurant.getAddress(), restaurant.getAddress());
+
         currentRestaurant.setName(restaurant.getName());
         currentRestaurant.setAddress(restaurant.getAddress());
         currentRestaurant.setCuisine(restaurant.getCuisine());
-        restaurantRepository.save(currentRestaurant);
-        return currentRestaurant;
+
+        Restaurant updatedRestaurant = restaurantRepository.save(currentRestaurant);
+        log.info("Restaurant updated successfully: {} ({})", updatedRestaurant.getName(), updatedRestaurant.getId());
+
+        return updatedRestaurant;
     }
 
     @Override
@@ -86,6 +121,13 @@ public class RestaurantServiceImpl implements RestaurantService {
             @CacheEvict(value = "restaurants_by_cuisine", allEntries = true),
     })
     public void delete(UUID id) {
-        restaurantRepository.deleteById(id);
+        log.info("Deleting restaurant with ID: {}", id);
+        try {
+            restaurantRepository.deleteById(id);
+            log.info("Restaurant deleted successfully: {}", id);
+        } catch (Exception e) {
+            log.error("Failed to delete restaurant with ID: {}", id, e);
+            throw e;
+        }
     }
 }
