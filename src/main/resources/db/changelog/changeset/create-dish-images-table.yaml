@@ -20,3 +20,19 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
+        - addPrimaryKey:
+            tableName: dish_images
+            columnNames: dish_id, image
+            constraintName: pk_dish_images
+        - createIndex:
+            indexName: idx_dish_images_dish_id
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+        - createIndex:
+            indexName: idx_dish_images_image
+            tableName: dish_images
+            columns:
+              - column:
+                  name: image

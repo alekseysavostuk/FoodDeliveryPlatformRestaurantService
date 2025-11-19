@@ -13,7 +13,6 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
                     unique: true
-
               - column:
                   name: name
                   type: varchar(255)
@@ -29,3 +28,23 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
+        - createIndex:
+            indexName: idx_restaurant_name
+            tableName: restaurant
+            columns:
+              - column:
+                  name: name
+        - createIndex:
+            indexName: idx_restaurant_cuisine
+            tableName: restaurant
+            columns:
+              - column:
+                  name: cuisine
+        - createIndex:
+            indexName: idx_restaurant_name_cuisine
+            tableName: restaurant
+            columns:
+              - column:
+                  name: name
+              - column:
+                  name: cuisine

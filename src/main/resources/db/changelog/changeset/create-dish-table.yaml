@@ -40,3 +40,29 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: true
+        - createIndex:
+            indexName: idx_dish_restaurant_id
+            tableName: dish
+            columns:
+              - column:
+                  name: restaurant_id
+        - createIndex:
+            indexName: idx_dish_name
+            tableName: dish
+            columns:
+              - column:
+                  name: name
+        - createIndex:
+            indexName: idx_dish_price
+            tableName: dish
+            columns:
+              - column:
+                  name: price
+        - createIndex:
+            indexName: idx_dish_restaurant_name
+            tableName: dish
+            columns:
+              - column:
+                  name: restaurant_id
+              - column:
+                  name: name
