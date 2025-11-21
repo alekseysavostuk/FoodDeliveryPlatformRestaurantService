@@ -3,8 +3,11 @@ package v1.foodDeliveryPlatform.rest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -63,6 +66,32 @@ public class AdviceController {
                         ConstraintViolation::getMessage
                 )));
         return exceptionBody;
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ExceptionBody handleAccessDenied(
+            final AccessDeniedException e
+    ) {
+        return new ExceptionBody("Access denied: " + e.getMessage());
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionBody handleMissingServletRequestParameter(
+            final MissingServletRequestParameterException e
+    ) {
+        return new ExceptionBody(
+                String.format("Required parameter '%s' is missing", e.getParameterName())
+        );
+    }
+
+    @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ExceptionBody handleAuthenticationException(
+            final AuthenticationCredentialsNotFoundException e
+    ) {
+        return new ExceptionBody("Authentication required: " + e.getMessage());
     }
 
     @ExceptionHandler(ImageUploadException.class)
