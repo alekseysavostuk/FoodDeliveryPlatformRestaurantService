@@ -58,7 +58,6 @@ public class DishServiceImpl implements DishService {
 
     @Override
     @Transactional
-    @Cacheable(value = "restaurant_dishes", key = "#restaurantId")
     public List<Dish> getAllByRestaurantId(UUID restaurantId) {
         log.debug("Fetching all dishes for restaurant: {}", restaurantId);
         List<Dish> dishes = dishRepository.findAllByRestaurantId(restaurantId);

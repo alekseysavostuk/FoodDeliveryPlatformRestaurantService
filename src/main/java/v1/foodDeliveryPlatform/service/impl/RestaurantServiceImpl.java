@@ -47,7 +47,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     @Transactional
-    @Cacheable(value = "all_restaurants")
     public List<Restaurant> getAllRestaurants() {
         log.debug("Fetching all restaurants");
         List<Restaurant> restaurants = restaurantRepository.findAll();
@@ -57,7 +56,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     @Transactional
-    @Cacheable(value = "restaurants_by_cuisine", key = "#cuisine")
     public List<Restaurant> getAllByCuisine(String cuisine) {
         log.debug("Fetching restaurants by cuisine: {}", cuisine);
         List<Restaurant> restaurants = restaurantRepository.findAllByCuisine(cuisine);

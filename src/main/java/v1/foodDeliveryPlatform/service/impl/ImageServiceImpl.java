@@ -81,7 +81,6 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    @Cacheable(value = "dish_images", key = "#dishId")
     public List<String> getAllByDishId(UUID dishId) {
         log.debug("Fetching all images for dish: {}", dishId);
 
