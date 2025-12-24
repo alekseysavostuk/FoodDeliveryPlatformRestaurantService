@@ -10,12 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import v1.foodDeliveryPlatform.exception.ResourceNotFoundException;
 import v1.foodDeliveryPlatform.model.ModelImage;
 import v1.foodDeliveryPlatform.model.Restaurant;
+import v1.foodDeliveryPlatform.model.enums.Cuisine;
 import v1.foodDeliveryPlatform.model.feign.RestaurantClient;
 import v1.foodDeliveryPlatform.repository.RestaurantRepository;
 import v1.foodDeliveryPlatform.service.MinioService;
 import v1.foodDeliveryPlatform.service.RestaurantService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,6 +45,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     @Transactional
     public Restaurant createRestaurant(Restaurant restaurant) {
+        isRestaurantCuisineExists(restaurant.getCuisine());
         log.info("Creating new restaurant: {}", restaurant.getName());
         Restaurant savedRestaurant = restaurantRepository.save(restaurant);
         log.info("Restaurant created successfully: {} ({})", savedRestaurant.getName(), savedRestaurant.getId());
@@ -122,6 +125,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             @CacheEvict(value = "restaurants_by_cuisine", allEntries = true),
     })
     public Restaurant updateRestaurant(Restaurant restaurant) {
+        isRestaurantCuisineExists(restaurant.getCuisine());
         log.info("Updating restaurant with ID: {}", restaurant.getId());
 
         Restaurant currentRestaurant = getById(restaurant.getId());
@@ -157,6 +161,18 @@ public class RestaurantServiceImpl implements RestaurantService {
         } catch (Exception e) {
             log.error("Failed to delete restaurant with ID: {}", id, e);
             throw e;
+        }
+    }
+
+    private void isRestaurantCuisineExists(String cuisine) {
+        boolean isValid = Cuisine.isValidCuisine(cuisine);
+
+        if (!isValid) {
+            throw new IllegalArgumentException(
+                    String.format("Invalid cuisine '%s'. Allowed values: %s",
+                            cuisine,
+                            String.join(", ", Cuisine.getNames()))
+            );
         }
     }
 }

@@ -86,6 +86,14 @@ public class AdviceController {
         );
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionBody handleIllegalArgument(
+            final IllegalArgumentException e
+    ) {
+        return new ExceptionBody(e.getMessage());
+    }
+
     @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ExceptionBody handleAuthenticationException(
