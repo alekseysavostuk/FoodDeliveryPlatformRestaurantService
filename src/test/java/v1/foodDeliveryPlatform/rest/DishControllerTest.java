@@ -10,7 +10,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import v1.foodDeliveryPlatform.config.ControllerTestSecurityConfig;
-import v1.foodDeliveryPlatform.dto.minio.DishImageDto;
+import v1.foodDeliveryPlatform.dto.minio.ModelImageDto;
 import v1.foodDeliveryPlatform.dto.model.DishDto;
 import v1.foodDeliveryPlatform.dto.model.feign.DishClientDto;
 import v1.foodDeliveryPlatform.facade.DishFacade;
@@ -181,7 +181,7 @@ class DishControllerTest {
                         .contentType(MediaType.MULTIPART_FORM_DATA))
                 .andExpect(status().isForbidden());
 
-        verify(dishFacade, never()).uploadImage(any(UUID.class), any(DishImageDto.class));
+        verify(dishFacade, never()).uploadImage(any(UUID.class), any(ModelImageDto.class));
     }
 
     @Test
@@ -195,7 +195,7 @@ class DishControllerTest {
         );
 
         DishDto dishDto = new DishDto();
-        when(dishFacade.uploadImage(eq(dishId), any(DishImageDto.class))).thenReturn(dishDto);
+        when(dishFacade.uploadImage(eq(dishId), any(ModelImageDto.class))).thenReturn(dishDto);
 
         mockMvc.perform(multipart("/api/v1/dishes/{id}/image", dishId)
                         .file(imageFile)
@@ -203,7 +203,7 @@ class DishControllerTest {
                         .contentType(MediaType.MULTIPART_FORM_DATA))
                 .andExpect(status().isOk());
 
-        verify(dishFacade).uploadImage(eq(dishId), any(DishImageDto.class));
+        verify(dishFacade).uploadImage(eq(dishId), any(ModelImageDto.class));
     }
 
     @Test
@@ -217,7 +217,7 @@ class DishControllerTest {
         );
 
         DishDto dishDto = new DishDto();
-        when(dishFacade.uploadImage(eq(dishId), any(DishImageDto.class))).thenReturn(dishDto);
+        when(dishFacade.uploadImage(eq(dishId), any(ModelImageDto.class))).thenReturn(dishDto);
 
         mockMvc.perform(multipart("/api/v1/dishes/{id}/image", dishId)
                         .file(imageFile)
@@ -225,7 +225,7 @@ class DishControllerTest {
                         .contentType(MediaType.MULTIPART_FORM_DATA))
                 .andExpect(status().isOk());
 
-        verify(dishFacade).uploadImage(eq(dishId), any(DishImageDto.class));
+        verify(dishFacade).uploadImage(eq(dishId), any(ModelImageDto.class));
     }
 
     @Test
@@ -237,7 +237,7 @@ class DishControllerTest {
                         .contentType(MediaType.MULTIPART_FORM_DATA))
                 .andExpect(status().isBadRequest());
 
-        verify(dishFacade, never()).uploadImage(any(UUID.class), any(DishImageDto.class));
+        verify(dishFacade, never()).uploadImage(any(UUID.class), any(ModelImageDto.class));
     }
 
     @Test
@@ -257,6 +257,6 @@ class DishControllerTest {
                         .contentType(MediaType.MULTIPART_FORM_DATA))
                 .andExpect(status().isBadRequest());
 
-        verify(dishFacade, never()).uploadImage(any(UUID.class), any(DishImageDto.class));
+        verify(dishFacade, never()).uploadImage(any(UUID.class), any(ModelImageDto.class));
     }
 }

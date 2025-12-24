@@ -1,5 +1,6 @@
 package v1.foodDeliveryPlatform.service;
 
+import v1.foodDeliveryPlatform.model.ModelImage;
 import v1.foodDeliveryPlatform.model.Restaurant;
 import v1.foodDeliveryPlatform.model.feign.RestaurantClient;
 
@@ -23,4 +24,5 @@ public interface RestaurantService {
     boolean existsRestaurant(UUID id);
 
     RestaurantClient getNameById(UUID id);
+    Restaurant uploadImage(UUID id, ModelImage image);
 }

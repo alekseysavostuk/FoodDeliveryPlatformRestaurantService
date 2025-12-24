@@ -70,4 +70,12 @@ public class RestaurantDto {
             accessMode = Schema.AccessMode.READ_ONLY
     )
     private List<DishDto> dishDtoList;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @Schema(
+            description = "List of restaurant image URLs (read only)",
+            example = "[\"https://bucket.s3.amazonaws.com/restaurants/123e4567/image1.jpg\", \"https://bucket.s3.amazonaws.com/restaurants/123e4567/image2.jpg\"]",
+            accessMode = Schema.AccessMode.READ_ONLY
+    )
+    private List<String> images;
 }

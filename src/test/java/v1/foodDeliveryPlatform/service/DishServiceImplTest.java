@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import v1.foodDeliveryPlatform.exception.ResourceNotFoundException;
 import v1.foodDeliveryPlatform.model.Dish;
-import v1.foodDeliveryPlatform.model.DishImage;
+import v1.foodDeliveryPlatform.model.ModelImage;
 import v1.foodDeliveryPlatform.model.Restaurant;
 import v1.foodDeliveryPlatform.model.feign.DishClient;
 import v1.foodDeliveryPlatform.repository.DishRepository;
@@ -183,30 +183,30 @@ class DishServiceImplTest {
     @Test
     void uploadImage_Success() {
         Dish dish = createTestDish();
-        DishImage dishImage = new DishImage();
+        ModelImage modelImage = new ModelImage();
         String fileName = "uploaded-image.jpg";
 
         when(dishRepository.findById(dishId)).thenReturn(Optional.of(dish));
-        when(minioService.upload(dishImage)).thenReturn(fileName);
+        when(minioService.upload(modelImage)).thenReturn(fileName);
         when(dishRepository.save(dish)).thenReturn(dish);
 
-        Dish result = dishService.uploadImage(dishId, dishImage);
+        Dish result = dishService.uploadImage(dishId, modelImage);
 
         assertNotNull(result);
         assertEquals(3, dish.getImages().size());
         assertTrue(dish.getImages().contains(fileName));
         verify(dishRepository).findById(dishId);
-        verify(minioService).upload(dishImage);
+        verify(minioService).upload(modelImage);
         verify(dishRepository).save(dish);
     }
 
     @Test
     void uploadImage_DishNotFound() {
-        DishImage dishImage = new DishImage();
+        ModelImage modelImage = new ModelImage();
         when(dishRepository.findById(dishId)).thenReturn(Optional.empty());
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
-                () -> dishService.uploadImage(dishId, dishImage));
+                () -> dishService.uploadImage(dishId, modelImage));
 
         assertEquals("Dish not found", exception.getMessage());
         verify(dishRepository).findById(dishId);

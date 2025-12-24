@@ -1,9 +1,8 @@
 package v1.foodDeliveryPlatform.facade.impl;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import v1.foodDeliveryPlatform.dto.minio.DishImageDto;
+import v1.foodDeliveryPlatform.dto.minio.ModelImageDto;
 import v1.foodDeliveryPlatform.dto.model.DishDto;
 import v1.foodDeliveryPlatform.dto.model.feign.DishClientDto;
 import v1.foodDeliveryPlatform.facade.DishFacade;
@@ -53,7 +52,7 @@ public class DishFacadeImpl implements DishFacade {
     }
 
     @Override
-    public DishDto uploadImage(UUID id, DishImageDto image) {
+    public DishDto uploadImage(UUID id, ModelImageDto image) {
         return mapper.toDto(dishService.uploadImage(id, taskImageMapper.toEntity(image)));
     }
 

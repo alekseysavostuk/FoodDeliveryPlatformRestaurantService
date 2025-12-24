@@ -34,4 +34,9 @@ public class Restaurant implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "restaurant")
     private List<Dish> dishes;
+
+    @Column(name = "image")
+    @CollectionTable(name = "restaurant_images", joinColumns = @JoinColumn(name = "restaurant_id"))
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> images;
 }

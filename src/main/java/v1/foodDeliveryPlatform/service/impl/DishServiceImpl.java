@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import v1.foodDeliveryPlatform.exception.ResourceNotFoundException;
 import v1.foodDeliveryPlatform.model.Dish;
-import v1.foodDeliveryPlatform.model.DishImage;
+import v1.foodDeliveryPlatform.model.ModelImage;
 import v1.foodDeliveryPlatform.model.feign.DishClient;
 import v1.foodDeliveryPlatform.repository.DishRepository;
 import v1.foodDeliveryPlatform.service.DishService;
@@ -45,6 +45,7 @@ public class DishServiceImpl implements DishService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "restaurants", allEntries = true)
     public Dish createDish(Dish dish, UUID restaurantId) {
         log.info("Creating new dish: {} for restaurant: {}", dish.getName(), restaurantId);
 
@@ -69,7 +70,8 @@ public class DishServiceImpl implements DishService {
     @Transactional
     @Caching(evict = {
             @CacheEvict(value = "dishes", key = "#dish.id"),
-            @CacheEvict(value = "restaurant_dishes", key = "#result.restaurant.id")
+            @CacheEvict(value = "restaurant_dishes", key = "#result.restaurant.id"),
+            @CacheEvict(value = "restaurants", allEntries = true)
     })
     public Dish updateDish(Dish dish) {
         log.info("Updating dish with ID: {}", dish.getId());
@@ -96,7 +98,8 @@ public class DishServiceImpl implements DishService {
     @Transactional
     @Caching(evict = {
             @CacheEvict(value = "dishes", key = "#id"),
-            @CacheEvict(value = "restaurant_dishes", allEntries = true)
+            @CacheEvict(value = "restaurant_dishes", allEntries = true),
+            @CacheEvict(value = "restaurants", allEntries = true)
     })
     public void delete(UUID id) {
         log.info("Deleting dish with ID: {}", id);
@@ -119,9 +122,10 @@ public class DishServiceImpl implements DishService {
     @Transactional
     @Caching(evict = {
             @CacheEvict(value = "dishes", key = "#id"),
-            @CacheEvict(value = "restaurant_dishes", key = "#result.restaurant.id")
+            @CacheEvict(value = "restaurant_dishes", key = "#result.restaurant.id"),
+            @CacheEvict(value = "restaurants", allEntries = true)
     })
-    public Dish uploadImage(final UUID id, final DishImage image) {
+    public Dish uploadImage(final UUID id, final ModelImage image) {
         log.info("Uploading image for dish: {}", id);
 
         Dish dish = getById(id);

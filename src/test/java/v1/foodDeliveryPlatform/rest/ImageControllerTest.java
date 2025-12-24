@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ImageController.class)
+@WebMvcTest(ImageDishController.class)
 @Import({ControllerTestSecurityConfig.class, AdviceController.class})
 class ImageControllerTest {
 

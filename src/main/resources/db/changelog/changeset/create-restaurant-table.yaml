@@ -28,6 +28,11 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: image_url
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
         - createIndex:
             indexName: idx_restaurant_name
             tableName: restaurant

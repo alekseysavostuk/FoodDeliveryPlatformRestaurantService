@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import v1.foodDeliveryPlatform.exception.ImageUploadException;
-import v1.foodDeliveryPlatform.model.DishImage;
+import v1.foodDeliveryPlatform.model.ModelImage;
 import v1.foodDeliveryPlatform.props.MinioProperties;
 import v1.foodDeliveryPlatform.service.MinioService;
 
@@ -23,7 +23,7 @@ public class MinioServiceImpl implements MinioService {
     private final MinioProperties minioProperties;
 
     @Override
-    public String upload(DishImage image) {
+    public String upload(ModelImage image) {
         log.info("Starting image upload process");
 
         try {
@@ -60,6 +60,26 @@ public class MinioServiceImpl implements MinioService {
         log.info("Image uploaded successfully: {}", fileName);
 
         return fileName;
+    }
+
+    @Override
+    public byte[] getFile(String fileName) throws Exception {
+        log.info("Getting file from MinIO: {}", fileName);
+
+        try (InputStream stream = minioClient.getObject(
+                GetObjectArgs.builder()
+                        .bucket(minioProperties.getBucket())
+                        .object(fileName)
+                        .build()
+        )) {
+            byte[] data = stream.readAllBytes();
+            log.debug("Successfully retrieved file: {} ({} bytes)", fileName, data.length);
+            return data;
+        } catch (Exception e) {
+            log.error("Failed to get file: {} from bucket: {}",
+                    fileName, minioProperties.getBucket(), e);
+            throw e;
+        }
     }
 
     @Override

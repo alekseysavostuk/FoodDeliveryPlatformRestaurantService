@@ -4,15 +4,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import v1.foodDeliveryPlatform.model.Dish;
+import v1.foodDeliveryPlatform.model.Restaurant;
 import v1.foodDeliveryPlatform.repository.DishRepository;
+import v1.foodDeliveryPlatform.repository.RestaurantRepository;
 import v1.foodDeliveryPlatform.service.DishService;
 import v1.foodDeliveryPlatform.service.ImageService;
 import v1.foodDeliveryPlatform.service.MinioService;
+import v1.foodDeliveryPlatform.service.RestaurantService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,8 @@ import java.util.UUID;
 public class ImageServiceImpl implements ImageService {
 
     private final DishService dishService;
+    private final RestaurantService restaurantService;
+    private final RestaurantRepository restaurantRepository;
     private final DishRepository dishRepository;
     private final MinioService minioService;
 
@@ -88,6 +92,68 @@ public class ImageServiceImpl implements ImageService {
         List<String> images = dish.getImages();
 
         log.debug("Found {} images for dish: {}", images.size(), dishId);
+        return images;
+    }
+
+    @Override
+    @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "restaurants", key = "#restaurantId")
+    })
+    public Restaurant removeImageByRestaurantId(UUID restaurantId, String image) throws Exception {
+        log.info("Removing image from restaurant - RestaurantId: {}, Image: {}", restaurantId, image);
+
+        Restaurant restaurant = restaurantService.getById(restaurantId);
+        log.debug("Found restaurant: {} with {} images", restaurant.getName(), restaurant.getImages().size());
+
+        List<String> updatedImages = new ArrayList<>(restaurant.getImages());
+        if (updatedImages.remove(image)) {
+            log.debug("Image found in restaurant, removing from MinIO and updating restaurant");
+            minioService.deleteFile(image);
+            restaurant.setImages(updatedImages);
+            Restaurant savedRestaurant = restaurantRepository.save(restaurant);
+            log.info("Image removed successfully from restaurant: {} (remaining images: {})",
+                    restaurantId, updatedImages.size());
+            return savedRestaurant;
+        } else {
+            log.warn("Image not found in restaurant images - DishId: {}, Image: {}", restaurantId, image);
+            return restaurant;
+        }
+    }
+
+    @Override
+    @Transactional
+    @SneakyThrows
+    @Caching(evict = {
+            @CacheEvict(value = "restaurants", key = "#restaurantId")
+    })
+    public Restaurant removeAllImagesByRestaurantId(UUID restaurantId) {
+        log.info("Removing all images from restaurant: {}", restaurantId);
+
+        Restaurant restaurant = restaurantService.getById(restaurantId);
+        log.debug("Found restaurant: {} with {} images to remove", restaurant.getName(), restaurant.getImages().size());
+
+        int imageCount = restaurant.getImages().size();
+        for (String image : restaurant.getImages()) {
+            log.debug("Deleting image from MinIO: {}", image);
+            minioService.deleteFile(image);
+        }
+
+        restaurant.setImages(new ArrayList<>());
+        Restaurant savedRestaurant = restaurantRepository.save(restaurant);
+        log.info("All {} images removed successfully from restaurant: {}", imageCount, restaurantId);
+
+        return savedRestaurant;
+    }
+
+    @Override
+    public List<String> getAllByRestaurantId(UUID restaurantId) {
+        log.debug("Fetching all images for restaurant: {}", restaurantId);
+
+        Restaurant restaurant = restaurantService.getById(restaurantId);
+        List<String> images = restaurant.getImages();
+
+        log.debug("Found {} images for restaurant: {}", images.size(), restaurantId);
         return images;
     }
 }

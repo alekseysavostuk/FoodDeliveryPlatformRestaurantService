@@ -1,6 +1,6 @@
 package v1.foodDeliveryPlatform.facade;
 
-import v1.foodDeliveryPlatform.dto.minio.DishImageDto;
+import v1.foodDeliveryPlatform.dto.minio.ModelImageDto;
 import v1.foodDeliveryPlatform.dto.model.DishDto;
 import v1.foodDeliveryPlatform.dto.model.feign.DishClientDto;
 
@@ -19,7 +19,7 @@ public interface DishFacade {
 
     void delete(UUID id);
 
-    DishDto uploadImage(UUID id, DishImageDto image);
+    DishDto uploadImage(UUID id, ModelImageDto image);
 
     boolean existsDish(UUID restaurantId, UUID dishId);
 

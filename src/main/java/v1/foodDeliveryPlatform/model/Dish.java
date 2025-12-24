@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -38,15 +37,9 @@ public class Dish implements Serializable {
     @CollectionTable(name = "dish_images", joinColumns = @JoinColumn(name = "dish_id"))
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> images;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
-
-    @Transient
-    public List<String> getImageUrls() {
-        return images.stream()
-                .map(path -> "/api/dishes/" + this.id + "/images/url?path=" + path)
-                .collect(Collectors.toList());
-    }
 
 }

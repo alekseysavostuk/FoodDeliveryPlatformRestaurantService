@@ -1,5 +1,6 @@
 package v1.foodDeliveryPlatform.facade;
 
+import v1.foodDeliveryPlatform.dto.minio.ModelImageDto;
 import v1.foodDeliveryPlatform.dto.model.RestaurantDto;
 import v1.foodDeliveryPlatform.dto.model.feign.RestaurantClientDto;
 
@@ -23,4 +24,6 @@ public interface RestaurantFacade {
     boolean existsRestaurant(UUID id);
 
     RestaurantClientDto getNameById(UUID id);
+
+    RestaurantDto uploadImage(UUID id, ModelImageDto image);
 }

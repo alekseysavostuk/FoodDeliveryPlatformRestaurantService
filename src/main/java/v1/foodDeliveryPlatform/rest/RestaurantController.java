@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import v1.foodDeliveryPlatform.dto.minio.ModelImageDto;
 import v1.foodDeliveryPlatform.dto.model.DishDto;
 import v1.foodDeliveryPlatform.dto.model.RestaurantDto;
 import v1.foodDeliveryPlatform.dto.model.feign.RestaurantClientDto;
@@ -21,6 +22,12 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/restaurants")
+@CrossOrigin(
+        origins = "http://localhost:5173",
+        allowedHeaders = "*",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS},
+        allowCredentials = "true"
+)
 @AllArgsConstructor
 @Tag(
         name = "Restaurant Controller",
@@ -30,7 +37,6 @@ public class RestaurantController {
 
     private final RestaurantFacade restaurantFacade;
     private final DishFacade dishFacade;
-
 
     @GetMapping("/{id}")
     @Operation(summary = "Get restaurant by id")
@@ -65,6 +71,16 @@ public class RestaurantController {
             @Validated(OnUpdate.class)
             @RequestBody RestaurantDto restaurantDto) {
         return new ResponseEntity<>(restaurantFacade.updateRestaurant(restaurantDto), HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/image")
+    @Operation(summary = "Upload image to restaurant")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER')")
+    public ResponseEntity<RestaurantDto> uploadImage(
+            @PathVariable final UUID id,
+            @Validated @ModelAttribute final ModelImageDto imageDto
+    ) {
+        return new ResponseEntity<>(restaurantFacade.uploadImage(id, imageDto), HttpStatus.OK);
     }
 
     @GetMapping

@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Dish Image DTO for file upload")
-public class DishImageDto {
+public class ModelImageDto {
 
     @NotNull(message = "Image must be not null")
     @Schema(

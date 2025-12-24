@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.multipart.MultipartFile;
 import v1.foodDeliveryPlatform.exception.ImageUploadException;
-import v1.foodDeliveryPlatform.model.DishImage;
+import v1.foodDeliveryPlatform.model.ModelImage;
 import v1.foodDeliveryPlatform.props.MinioProperties;
 import v1.foodDeliveryPlatform.service.impl.MinioServiceImpl;
 
@@ -45,7 +45,7 @@ class MinioServiceImplTest {
 
     @Test
     void upload_Success() throws Exception {
-        DishImage dishImage = createTestDishImage();
+        ModelImage modelImage = createTestDishImage();
         when(minioProperties.getBucket()).thenReturn(testBucketName);
 
         when(minioClient.bucketExists(any(BucketExistsArgs.class))).thenReturn(true);
@@ -54,7 +54,7 @@ class MinioServiceImplTest {
         when(multipartFile.getInputStream()).thenReturn(inputStream);
         when(inputStream.available()).thenReturn(1024);
 
-        String result = minioService.upload(dishImage);
+        String result = minioService.upload(modelImage);
 
         assertNotNull(result);
         assertTrue(result.endsWith(".jpg"));
@@ -63,7 +63,7 @@ class MinioServiceImplTest {
 
     @Test
     void upload_BucketCreationSuccess() throws Exception {
-        DishImage dishImage = createTestDishImage();
+        ModelImage modelImage = createTestDishImage();
         when(minioProperties.getBucket()).thenReturn(testBucketName);
         when(minioClient.bucketExists(any(BucketExistsArgs.class))).thenReturn(false);
 
@@ -72,7 +72,7 @@ class MinioServiceImplTest {
         when(multipartFile.getInputStream()).thenReturn(inputStream);
         when(inputStream.available()).thenReturn(1024);
 
-        String result = minioService.upload(dishImage);
+        String result = minioService.upload(modelImage);
 
         assertNotNull(result);
 
@@ -81,13 +81,13 @@ class MinioServiceImplTest {
 
     @Test
     void upload_BucketOperationFailed() throws Exception {
-        DishImage dishImage = createTestDishImage();
+        ModelImage modelImage = createTestDishImage();
         when(minioProperties.getBucket()).thenReturn(testBucketName);
         when(minioClient.bucketExists(any(BucketExistsArgs.class)))
                 .thenThrow(new RuntimeException("Bucket error"));
 
         ImageUploadException exception = assertThrows(ImageUploadException.class,
-                () -> minioService.upload(dishImage));
+                () -> minioService.upload(modelImage));
 
         assertTrue(exception.getMessage().contains("Image upload failed"));
         verify(minioClient).bucketExists(any(BucketExistsArgs.class));
@@ -96,13 +96,13 @@ class MinioServiceImplTest {
 
     @Test
     void upload_EmptyFile() throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        DishImage dishImage = createTestDishImage();
+        ModelImage modelImage = createTestDishImage();
         when(minioProperties.getBucket()).thenReturn(testBucketName);
         when(minioClient.bucketExists(any(BucketExistsArgs.class))).thenReturn(true);
         when(multipartFile.isEmpty()).thenReturn(true);
 
         ImageUploadException exception = assertThrows(ImageUploadException.class,
-                () -> minioService.upload(dishImage));
+                () -> minioService.upload(modelImage));
 
         assertEquals("Image must have name.", exception.getMessage());
         verify(multipartFile).isEmpty();
@@ -111,14 +111,14 @@ class MinioServiceImplTest {
 
     @Test
     void upload_NullFilename() throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        DishImage dishImage = createTestDishImage();
+        ModelImage modelImage = createTestDishImage();
         when(minioProperties.getBucket()).thenReturn(testBucketName);
         when(minioClient.bucketExists(any(BucketExistsArgs.class))).thenReturn(true);
         when(multipartFile.isEmpty()).thenReturn(false);
         when(multipartFile.getOriginalFilename()).thenReturn(null);
 
         ImageUploadException exception = assertThrows(ImageUploadException.class,
-                () -> minioService.upload(dishImage));
+                () -> minioService.upload(modelImage));
 
         assertEquals("Image must have name.", exception.getMessage());
         verify(multipartFile).getOriginalFilename();
@@ -127,7 +127,7 @@ class MinioServiceImplTest {
 
     @Test
     void upload_InputStreamException() throws Exception {
-        DishImage dishImage = createTestDishImage();
+        ModelImage modelImage = createTestDishImage();
         when(minioProperties.getBucket()).thenReturn(testBucketName);
         when(minioClient.bucketExists(any(BucketExistsArgs.class))).thenReturn(true);
         when(multipartFile.isEmpty()).thenReturn(false);
@@ -135,7 +135,7 @@ class MinioServiceImplTest {
         when(multipartFile.getInputStream()).thenThrow(new RuntimeException("Stream error"));
 
         ImageUploadException exception = assertThrows(ImageUploadException.class,
-                () -> minioService.upload(dishImage));
+                () -> minioService.upload(modelImage));
 
         assertTrue(exception.getMessage().contains("Image upload failed"));
         verify(multipartFile).getInputStream();
@@ -144,7 +144,7 @@ class MinioServiceImplTest {
 
     @Test
     void upload_SaveImageException() throws Exception {
-        DishImage dishImage = createTestDishImage();
+        ModelImage modelImage = createTestDishImage();
         when(minioProperties.getBucket()).thenReturn(testBucketName);
         when(minioClient.bucketExists(any(BucketExistsArgs.class))).thenReturn(true);
         when(multipartFile.isEmpty()).thenReturn(false);
@@ -155,7 +155,7 @@ class MinioServiceImplTest {
 
         doThrow(new RuntimeException("Save error")).when(minioClient).putObject(any(PutObjectArgs.class));
 
-        assertThrows(RuntimeException.class, () -> minioService.upload(dishImage));
+        assertThrows(RuntimeException.class, () -> minioService.upload(modelImage));
 
         verify(minioClient).putObject(any(PutObjectArgs.class));
     }
@@ -186,7 +186,7 @@ class MinioServiceImplTest {
 
     @Test
     void upload_ExtensionExtractionSuccess() throws Exception {
-        DishImage dishImage = createTestDishImage();
+        ModelImage modelImage = createTestDishImage();
         when(minioProperties.getBucket()).thenReturn(testBucketName);
         when(minioClient.bucketExists(any(BucketExistsArgs.class))).thenReturn(true);
         when(multipartFile.isEmpty()).thenReturn(false);
@@ -198,7 +198,7 @@ class MinioServiceImplTest {
         when(minioClient.putObject(any(PutObjectArgs.class)))
                 .thenAnswer(invocation -> null);
 
-        String result = minioService.upload(dishImage);
+        String result = minioService.upload(modelImage);
 
         assertNotNull(result);
         assertTrue(result.endsWith(".png"));
@@ -206,7 +206,7 @@ class MinioServiceImplTest {
 
     @Test
     void upload_ExtensionExtractionFallback() throws Exception {
-        DishImage dishImage = createTestDishImage();
+        ModelImage modelImage = createTestDishImage();
         when(minioProperties.getBucket()).thenReturn(testBucketName);
         when(minioClient.bucketExists(any(BucketExistsArgs.class))).thenReturn(true);
         when(multipartFile.isEmpty()).thenReturn(false);
@@ -218,7 +218,7 @@ class MinioServiceImplTest {
         when(minioClient.putObject(any(PutObjectArgs.class)))
                 .thenAnswer(invocation -> null);
 
-        String result = minioService.upload(dishImage);
+        String result = minioService.upload(modelImage);
 
         assertNotNull(result);
 
@@ -230,23 +230,23 @@ class MinioServiceImplTest {
 
     @Test
     void upload_MakeBucketException() throws Exception {
-        DishImage dishImage = createTestDishImage();
+        ModelImage modelImage = createTestDishImage();
         when(minioProperties.getBucket()).thenReturn(testBucketName);
         when(minioClient.bucketExists(any(BucketExistsArgs.class))).thenReturn(false);
 
         doThrow(new RuntimeException("Make bucket error")).when(minioClient).makeBucket(any(MakeBucketArgs.class));
 
         ImageUploadException exception = assertThrows(ImageUploadException.class,
-                () -> minioService.upload(dishImage));
+                () -> minioService.upload(modelImage));
 
         assertTrue(exception.getMessage().contains("Image upload failed"));
         verify(minioClient).makeBucket(any(MakeBucketArgs.class));
         verify(minioClient, never()).putObject(any(PutObjectArgs.class));
     }
 
-    private DishImage createTestDishImage() {
-        DishImage dishImage = new DishImage();
-        dishImage.setFile(multipartFile);
-        return dishImage;
+    private ModelImage createTestDishImage() {
+        ModelImage modelImage = new ModelImage();
+        modelImage.setFile(multipartFile);
+        return modelImage;
     }
 }

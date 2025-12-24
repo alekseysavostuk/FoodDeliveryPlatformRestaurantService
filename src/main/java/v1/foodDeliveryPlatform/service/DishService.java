@@ -1,7 +1,7 @@
 package v1.foodDeliveryPlatform.service;
 
 import v1.foodDeliveryPlatform.model.Dish;
-import v1.foodDeliveryPlatform.model.DishImage;
+import v1.foodDeliveryPlatform.model.ModelImage;
 import v1.foodDeliveryPlatform.model.feign.DishClient;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public interface DishService {
 
     void delete(UUID id);
 
-    Dish uploadImage(UUID id, DishImage image);
+    Dish uploadImage(UUID id, ModelImage image);
 
     boolean existsDish(UUID restaurantId, UUID dishId);
 

@@ -24,10 +24,14 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import v1.foodDeliveryPlatform.props.JwtProps;
 import v1.foodDeliveryPlatform.props.MinioProperties;
 
 import javax.crypto.spec.SecretKeySpec;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,7 +77,7 @@ public class AppConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagementConfigurer ->
                         sessionManagementConfigurer
@@ -99,6 +103,14 @@ public class AppConfig {
                                 .requestMatchers("/swagger-ui/**")
                                 .permitAll()
                                 .requestMatchers("/v3/api-docs/**")
+                                .permitAll()
+                                .requestMatchers("/api/v1/restaurants")
+                                .permitAll()
+                                .requestMatchers("/api/v1/dishes/*/images/**")
+                                .permitAll()
+                                .requestMatchers("/api/v1/restaurants/*/images/**")
+                                .permitAll()
+                                .requestMatchers("/api/v1/restaurants/**")
                                 .permitAll()
                                 .requestMatchers("/api/v1/restaurants/*/exists")
                                 .authenticated()
@@ -142,5 +154,45 @@ public class AppConfig {
                     List.of();
         });
         return converter;
+    }
+
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "http://localhost:8080"
+        ));
+
+        configuration.setAllowedMethods(Arrays.asList(
+                "GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"
+        ));
+
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Authorization",
+                "Content-Type",
+                "X-Requested-With",
+                "Accept",
+                "Origin",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers"
+        ));
+
+        configuration.setExposedHeaders(Arrays.asList(
+                "Access-Control-Allow-Origin",
+                "Access-Control-Allow-Credentials"
+        ));
+
+        configuration.setAllowCredentials(true);
+
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
     }
 }

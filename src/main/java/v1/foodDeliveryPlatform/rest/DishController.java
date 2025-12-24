@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import v1.foodDeliveryPlatform.dto.minio.DishImageDto;
+import v1.foodDeliveryPlatform.dto.minio.ModelImageDto;
 import v1.foodDeliveryPlatform.dto.model.DishDto;
 import v1.foodDeliveryPlatform.dto.model.feign.DishClientDto;
 import v1.foodDeliveryPlatform.dto.validation.OnUpdate;
@@ -18,6 +18,12 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/dishes")
+@CrossOrigin(
+        origins = "http://localhost:5173",
+        allowedHeaders = "*",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS},
+        allowCredentials = "true"
+)
 @AllArgsConstructor
 @Tag(
         name = "Dish Controller",
@@ -58,7 +64,7 @@ public class DishController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER')")
     public ResponseEntity<DishDto> uploadImage(
             @PathVariable final UUID id,
-            @Validated @ModelAttribute final DishImageDto imageDto
+            @Validated @ModelAttribute final ModelImageDto imageDto
     ) {
         return new ResponseEntity<>(dishFacade.uploadImage(id, imageDto), HttpStatus.OK);
     }

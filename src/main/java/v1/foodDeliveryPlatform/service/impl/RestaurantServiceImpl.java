@@ -8,11 +8,14 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import v1.foodDeliveryPlatform.exception.ResourceNotFoundException;
+import v1.foodDeliveryPlatform.model.ModelImage;
 import v1.foodDeliveryPlatform.model.Restaurant;
 import v1.foodDeliveryPlatform.model.feign.RestaurantClient;
 import v1.foodDeliveryPlatform.repository.RestaurantRepository;
+import v1.foodDeliveryPlatform.service.MinioService;
 import v1.foodDeliveryPlatform.service.RestaurantService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +25,7 @@ import java.util.UUID;
 public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
+    private final MinioService minioService;
 
     @Override
     @Transactional
@@ -74,6 +78,32 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "restaurants", key = "#id"),
+            @CacheEvict(value = "restaurants", allEntries = true)
+    })
+    public Restaurant uploadImage(final UUID id, final ModelImage image) {
+        log.info("Uploading image for dish: {}", id);
+
+        Restaurant restaurant = getById(id);
+        log.debug("Restaurant found: {} with {} existing images", restaurant.getName(), restaurant.getImages().size());
+
+        String fileName = minioService.upload(image);
+        log.debug("Image uploaded to MinIO: {}", fileName);
+
+        List<String> images = new ArrayList<>(restaurant.getImages());
+        images.add(fileName);
+        restaurant.setImages(images);
+
+        Restaurant updatedRestaurant = restaurantRepository.save(restaurant);
+        log.info("Image uploaded successfully for restaurant: {} (total images: {})",
+                updatedRestaurant.getName(), updatedRestaurant.getImages().size());
+
+        return updatedRestaurant;
+    }
+
+    @Override
+    @Transactional
     public RestaurantClient getNameById(UUID id) {
         log.debug("Fetching restaurant name by ID: {}", id);
         Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(() -> {
@@ -121,6 +151,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void delete(UUID id) {
         log.info("Deleting restaurant with ID: {}", id);
         try {
+            restaurantRepository.deleteImagesByRestaurantId(id);
             restaurantRepository.deleteById(id);
             log.info("Restaurant deleted successfully: {}", id);
         } catch (Exception e) {
