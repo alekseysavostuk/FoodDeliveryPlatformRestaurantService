@@ -1,0 +1,93 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-restaurant-images-data
+      author: Aleksey
+      changes:
+
+        # 1. Фото для Якитория (Японская)
+        - insert:
+            tableName: restaurant_images
+            columns:
+              - column:
+                  name: restaurant_id
+                  value: "a2e3f4a5-b6c7-4d8e-9f01-2a3b4c5d6e7f"
+              - column:
+                  name: image
+                  value: "a2e3f4a5-b6c7-4d8e-9f01-2a3b4c5d6e7f.jpg"
+
+        # 2. Фото для American Burger Co. (Американская)
+        - insert:
+            tableName: restaurant_images
+            columns:
+              - column:
+                  name: restaurant_id
+                  value: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7a"
+              - column:
+                  name: image
+                  value: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7a.jpg"
+
+        # 3. Фото для Chili Amigos (Мексиканская)
+        - insert:
+            tableName: restaurant_images
+            columns:
+              - column:
+                  name: restaurant_id
+                  value: "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7a8b"
+              - column:
+                  name: image
+                  value: "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7a8b.jpg"
+
+        # 4. Фото для Namaste (Индийская)
+        - insert:
+            tableName: restaurant_images
+            columns:
+              - column:
+                  name: restaurant_id
+                  value: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7a8b9c"
+              - column:
+                  name: image
+                  value: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7a8b9c.jpg"
+
+        # 5. Фото для Русский двор (Русская)
+        - insert:
+            tableName: restaurant_images
+            columns:
+              - column:
+                  name: restaurant_id
+                  value: "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7a8b9c0d"
+              - column:
+                  name: image
+                  value: "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7a8b9c0d.jpg"
+
+        # 6. Фото для Великая стена (Китайская)
+        - insert:
+            tableName: restaurant_images
+            columns:
+              - column:
+                  name: restaurant_id
+                  value: "a7b8c9d0-e1f2-4a3b-4c5d-6e7a8b9c0d1e"
+              - column:
+                  name: image
+                  value: "a7b8c9d0-e1f2-4a3b-4c5d-6e7a8b9c0d1e.jpg"
+
+        # 7. Фото для Le Café Parisien (Французская)
+        - insert:
+            tableName: restaurant_images
+            columns:
+              - column:
+                  name: restaurant_id
+                  value: "b8c9d0e1-f2a3-4b4c-5d6e-7a8b9c0d1e2f"
+              - column:
+                  name: image
+                  value: "b8c9d0e1-f2a3-4b4c-5d6e-7a8b9c0d1e2f.jpg"
+
+        # 8. Фото для Bangkok Street (Тайская)
+        - insert:
+            tableName: restaurant_images
+            columns:
+              - column:
+                  name: restaurant_id
+                  value: "c9d0e1f2-a3b4-4c5d-6e7a-8b9c0d1e2f3a"
+              - column:
+                  name: image
+                  value: "c9d0e1f2-a3b4-4c5d-6e7a-8b9c0d1e2f3a.jpg"

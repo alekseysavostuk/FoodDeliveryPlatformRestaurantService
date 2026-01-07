@@ -1,0 +1,773 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-dishes-data
+      author: Aleksey
+      changes:
+
+        # ===== ДЛЯ Якитория (Японская) =====
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: restaurant_id
+                  value: "a2e3f4a5-b6c7-4d8e-9f01-2a3b4c5d6e7f"
+              - column:
+                  name: name
+                  value: "Ролл Филадельфия"
+              - column:
+                  name: description
+                  value: "Лосось, сливочный сыр, огурец"
+              - column:
+                  name: price
+                  value: 21.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: restaurant_id
+                  value: "a2e3f4a5-b6c7-4d8e-9f01-2a3b4c5d6e7f"
+              - column:
+                  name: name
+                  value: "Ролл Калифорния"
+              - column:
+                  name: description
+                  value: "Краб, авокадо, огурец, икра"
+              - column:
+                  name: price
+                  value: 19.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: restaurant_id
+                  value: "a2e3f4a5-b6c7-4d8e-9f01-2a3b4c5d6e7f"
+              - column:
+                  name: name
+                  value: "Темпура"
+              - column:
+                  name: description
+                  value: "Овощи в кляре с соусом"
+              - column:
+                  name: price
+                  value: 16.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: restaurant_id
+                  value: "a2e3f4a5-b6c7-4d8e-9f01-2a3b4c5d6e7f"
+              - column:
+                  name: name
+                  value: "Мисо суп"
+              - column:
+                  name: description
+                  value: "Традиционный японский суп"
+              - column:
+                  name: price
+                  value: 8.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: restaurant_id
+                  value: "a2e3f4a5-b6c7-4d8e-9f01-2a3b4c5d6e7f"
+              - column:
+                  name: name
+                  value: "Сашими из тунца"
+              - column:
+                  name: description
+                  value: "Свежий тунец с васаби"
+              - column:
+                  name: price
+                  value: 28.00
+
+        # ===== ДЛЯ American Burger Co. (Американская) =====
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: restaurant_id
+                  value: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7a"
+              - column:
+                  name: name
+                  value: "Классический бургер"
+              - column:
+                  name: description
+                  value: "Говяжья котлета, сыр, салат, помидор"
+              - column:
+                  name: price
+                  value: 15.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: restaurant_id
+                  value: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7a"
+              - column:
+                  name: name
+                  value: "Чизбургер"
+              - column:
+                  name: description
+                  value: "Бургер с двойным сыром"
+              - column:
+                  name: price
+                  value: 17.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: restaurant_id
+                  value: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7a"
+              - column:
+                  name: name
+                  value: "Картофель фри"
+              - column:
+                  name: description
+                  value: "Хрустящий картофель с соусом"
+              - column:
+                  name: price
+                  value: 7.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: restaurant_id
+                  value: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7a"
+              - column:
+                  name: name
+                  value: "Куриные наггетсы"
+              - column:
+                  name: description
+                  value: "6 куриных наггетсов"
+              - column:
+                  name: price
+                  value: 10.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: restaurant_id
+                  value: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7a"
+              - column:
+                  name: name
+                  value: "Молочный коктейль"
+              - column:
+                  name: description
+                  value: "Ванильный или шоколадный"
+              - column:
+                  name: price
+                  value: 8.00
+
+        # ===== ДЛЯ Chili Amigos (Мексиканская) =====
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: restaurant_id
+                  value: "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7a8b"
+              - column:
+                  name: name
+                  value: "Буррито с говядиной"
+              - column:
+                  name: description
+                  value: "Лепешка с мясом, фасолью и овощами"
+              - column:
+                  name: price
+                  value: 16.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: restaurant_id
+                  value: "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7a8b"
+              - column:
+                  name: name
+                  value: "Такос"
+              - column:
+                  name: description
+                  value: "3 штуки с курицей и сальсой"
+              - column:
+                  name: price
+                  value: 14.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: restaurant_id
+                  value: "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7a8b"
+              - column:
+                  name: name
+                  value: "Начос"
+              - column:
+                  name: description
+                  value: "Чипсы с сыром, гуакамоле и сметаной"
+              - column:
+                  name: price
+                  value: 12.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: restaurant_id
+                  value: "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7a8b"
+              - column:
+                  name: name
+                  value: "Фахитас"
+              - column:
+                  name: description
+                  value: "Курица с перцем и луком в лепешке"
+              - column:
+                  name: price
+                  value: 18.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: restaurant_id
+                  value: "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7a8b"
+              - column:
+                  name: name
+                  value: "Кесадилья"
+              - column:
+                  name: description
+                  value: "Лепешка с сыром и курицей"
+              - column:
+                  name: price
+                  value: 13.50
+
+        # ===== ДЛЯ Namaste (Индийская) =====
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: restaurant_id
+                  value: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7a8b9c"
+              - column:
+                  name: name
+                  value: "Цыпленок Тикка Масала"
+              - column:
+                  name: description
+                  value: "Курица в томатном соусе со специями"
+              - column:
+                  name: price
+                  value: 19.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: restaurant_id
+                  value: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7a8b9c"
+              - column:
+                  name: name
+                  value: "Бирияни с бараниной"
+              - column:
+                  name: description
+                  value: "Рис с бараниной и специями"
+              - column:
+                  name: price
+                  value: 22.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: restaurant_id
+                  value: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7a8b9c"
+              - column:
+                  name: name
+                  value: "Наан"
+              - column:
+                  name: description
+                  value: "Традиционная индийская лепешка"
+              - column:
+                  name: price
+                  value: 5.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: restaurant_id
+                  value: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7a8b9c"
+              - column:
+                  name: name
+                  value: "Само́са"
+              - column:
+                  name: description
+                  value: "Жареный пирожок с картофелем"
+              - column:
+                  name: price
+                  value: 8.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: restaurant_id
+                  value: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7a8b9c"
+              - column:
+                  name: name
+                  value: "Панир Махани"
+              - column:
+                  name: description
+                  value: "Сыр панир в сливочном соусе"
+              - column:
+                  name: price
+                  value: 17.00
+
+        # ===== ДЛЯ Русский двор (Русская) =====
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: restaurant_id
+                  value: "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7a8b9c0d"
+              - column:
+                  name: name
+                  value: "Борщ"
+              - column:
+                  name: description
+                  value: "Традиционный украинский суп"
+              - column:
+                  name: price
+                  value: 12.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: restaurant_id
+                  value: "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7a8b9c0d"
+              - column:
+                  name: name
+                  value: "Пельмени"
+              - column:
+                  name: description
+                  value: "Домашние пельмени со сметаной"
+              - column:
+                  name: price
+                  value: 16.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: restaurant_id
+                  value: "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7a8b9c0d"
+              - column:
+                  name: name
+                  value: "Блины с икрой"
+              - column:
+                  name: description
+                  value: "Тонкие блины с красной икрой"
+              - column:
+                  name: price
+                  value: 24.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: restaurant_id
+                  value: "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7a8b9c0d"
+              - column:
+                  name: name
+                  value: "Оливье"
+              - column:
+                  name: description
+                  value: "Салат оливье по-домашнему"
+              - column:
+                  name: price
+                  value: 10.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: restaurant_id
+                  value: "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7a8b9c0d"
+              - column:
+                  name: name
+                  value: "Квас"
+              - column:
+                  name: description
+                  value: "Традиционный русский напиток"
+              - column:
+                  name: price
+                  value: 5.50
+
+        # ===== ДЛЯ Великая стена (Китайская) =====
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: restaurant_id
+                  value: "a7b8c9d0-e1f2-4a3b-4c5d-6e7a8b9c0d1e"
+              - column:
+                  name: name
+                  value: "Утка по-пекински"
+              - column:
+                  name: description
+                  value: "Утка с лепешками и соусом"
+              - column:
+                  name: price
+                  value: 32.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: restaurant_id
+                  value: "a7b8c9d0-e1f2-4a3b-4c5d-6e7a8b9c0d1e"
+              - column:
+                  name: name
+                  value: "Кунг-пао"
+              - column:
+                  name: description
+                  value: "Курица с арахисом и чили"
+              - column:
+                  name: price
+                  value: 18.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: restaurant_id
+                  value: "a7b8c9d0-e1f2-4a3b-4c5d-6e7a8b9c0d1e"
+              - column:
+                  name: name
+                  value: "Вонтоны"
+              - column:
+                  name: description
+                  value: "Пельмени на пару"
+              - column:
+                  name: price
+                  value: 14.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: restaurant_id
+                  value: "a7b8c9d0-e1f2-4a3b-4c5d-6e7a8b9c0d1e"
+              - column:
+                  name: name
+                  value: "Лапша с овощами"
+              - column:
+                  name: description
+                  value: "Жареная лапша с овощами"
+              - column:
+                  name: price
+                  value: 16.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: restaurant_id
+                  value: "a7b8c9d0-e1f2-4a3b-4c5d-6e7a8b9c0d1e"
+              - column:
+                  name: name
+                  value: "Спринг-роллы"
+              - column:
+                  name: description
+                  value: "Хрустящие роллы с овощами"
+              - column:
+                  name: price
+                  value: 12.50
+
+        # ===== ДЛЯ Le Café Parisien (Французская) =====
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: restaurant_id
+                  value: "b8c9d0e1-f2a3-4b4c-5d6e-7a8b9c0d1e2f"
+              - column:
+                  name: name
+                  value: "Фуа-гра"
+              - column:
+                  name: description
+                  value: "Печень гуся с тостами"
+              - column:
+                  name: price
+                  value: 35.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: restaurant_id
+                  value: "b8c9d0e1-f2a3-4b4c-5d6e-7a8b9c0d1e2f"
+              - column:
+                  name: name
+                  value: "Луковый суп"
+              - column:
+                  name: description
+                  value: "Суп с луком и сырной корочкой"
+              - column:
+                  name: price
+                  value: 14.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: restaurant_id
+                  value: "b8c9d0e1-f2a3-4b4c-5d6e-7a8b9c0d1e2f"
+              - column:
+                  name: name
+                  value: "Рататуй"
+              - column:
+                  name: description
+                  value: "Овощное рагу по-провансальски"
+              - column:
+                  name: price
+                  value: 18.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: restaurant_id
+                  value: "b8c9d0e1-f2a3-4b4c-5d6e-7a8b9c0d1e2f"
+              - column:
+                  name: name
+                  value: "Круассан"
+              - column:
+                  name: description
+                  value: "Свежий круассан с маслом"
+              - column:
+                  name: price
+                  value: 6.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: restaurant_id
+                  value: "b8c9d0e1-f2a3-4b4c-5d6e-7a8b9c0d1e2f"
+              - column:
+                  name: name
+                  value: "Профитроли"
+              - column:
+                  name: description
+                  value: "Пирожные с заварным кремом"
+              - column:
+                  name: price
+                  value: 11.00
+
+        # ===== ДЛЯ Bangkok Street (Тайская) =====
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: restaurant_id
+                  value: "c9d0e1f2-a3b4-4c5d-6e7a-8b9c0d1e2f3a"
+              - column:
+                  name: name
+                  value: "Том Ям"
+              - column:
+                  name: description
+                  value: "Острый суп с креветками"
+              - column:
+                  name: price
+                  value: 19.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: restaurant_id
+                  value: "c9d0e1f2-a3b4-4c5d-6e7a-8b9c0d1e2f3a"
+              - column:
+                  name: name
+                  value: "Пад Тай"
+              - column:
+                  name: description
+                  value: "Жареная рисовая лапша"
+              - column:
+                  name: price
+                  value: 17.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: restaurant_id
+                  value: "c9d0e1f2-a3b4-4c5d-6e7a-8b9c0d1e2f3a"
+              - column:
+                  name: name
+                  value: "Зеленое карри"
+              - column:
+                  name: description
+                  value: "Карри с кокосовым молоком"
+              - column:
+                  name: price
+                  value: 18.50
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: restaurant_id
+                  value: "c9d0e1f2-a3b4-4c5d-6e7a-8b9c0d1e2f3a"
+              - column:
+                  name: name
+                  value: "Спринг-роллы"
+              - column:
+                  name: description
+                  value: "Свежие роллы с креветками"
+              - column:
+                  name: price
+                  value: 14.00
+
+        - insert:
+            tableName: dish
+            columns:
+              - column:
+                  name: id
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: restaurant_id
+                  value: "c9d0e1f2-a3b4-4c5d-6e7a-8b9c0d1e2f3a"
+              - column:
+                  name: name
+                  value: "Манго стики райс"
+              - column:
+                  name: description
+                  value: "Рис с кокосом и манго"
+              - column:
+                  name: price
+                  value: 13.50

@@ -1,0 +1,141 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-belarus-restaurants-data
+      author: Aleksey
+      changes:
+
+        # 1. Японская кухня
+        - insert:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: id
+                  value: "a2e3f4a5-b6c7-4d8e-9f01-2a3b4c5d6e7f"
+              - column:
+                  name: name
+                  value: "Якитория"
+              - column:
+                  name: cuisine
+                  value: "Японская"
+              - column:
+                  name: address
+                  value: "ул. Зыбицкая, 6, Минск, Беларусь"
+
+        # 2. Американская кухня
+        - insert:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: id
+                  value: "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7a"
+              - column:
+                  name: name
+                  value: "American Burger Co."
+              - column:
+                  name: cuisine
+                  value: "Американская"
+              - column:
+                  name: address
+                  value: "ул. Октябрьская, 16, Минск, Беларусь"
+
+        # 3. Мексиканская кухня
+        - insert:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: id
+                  value: "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7a8b"
+              - column:
+                  name: name
+                  value: "Chili Amigos"
+              - column:
+                  name: cuisine
+                  value: "Мексиканская"
+              - column:
+                  name: address
+                  value: "пр. Победителей, 9, Минск, Беларусь"
+
+        # 4. Индийская кухня
+        - insert:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: id
+                  value: "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7a8b9c"
+              - column:
+                  name: name
+                  value: "Namaste"
+              - column:
+                  name: cuisine
+                  value: "Индийская"
+              - column:
+                  name: address
+                  value: "ул. Герцена, 5, Минск, Беларусь"
+
+        # 5. Русская кухня
+        - insert:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: id
+                  value: "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7a8b9c0d"
+              - column:
+                  name: name
+                  value: "Русский двор"
+              - column:
+                  name: cuisine
+                  value: "Русская"
+              - column:
+                  name: address
+                  value: "ул. Куйбышева, 40, Гомель, Беларусь"
+
+        # 6. Китайская кухня
+        - insert:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: id
+                  value: "a7b8c9d0-e1f2-4a3b-4c5d-6e7a8b9c0d1e"
+              - column:
+                  name: name
+                  value: "Великая стена"
+              - column:
+                  name: cuisine
+                  value: "Китайская"
+              - column:
+                  name: address
+                  value: "ул. Советская, 31, Брест, Беларусь"
+
+        # 7. Французская кухня
+        - insert:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: id
+                  value: "b8c9d0e1-f2a3-4b4c-5d6e-7a8b9c0d1e2f"
+              - column:
+                  name: name
+                  value: "Le Café Parisien"
+              - column:
+                  name: cuisine
+                  value: "Французская"
+              - column:
+                  name: address
+                  value: "ул. Карла Маркса, 32, Гродно, Беларусь"
+
+        # 8. Тайская кухня
+        - insert:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: id
+                  value: "c9d0e1f2-a3b4-4c5d-6e7a-8b9c0d1e2f3a"
+              - column:
+                  name: name
+                  value: "Bangkok Street"
+              - column:
+                  name: cuisine
+                  value: "Тайская"
+              - column:
+                  name: address
+                  value: "пр. Фрунзе, 8, Витебск, Беларусь"

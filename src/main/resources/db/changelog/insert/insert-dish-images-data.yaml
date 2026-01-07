@@ -1,0 +1,381 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-dish-images-data
+      author: Aleksey
+      changes:
+
+        # ===== ФОТО ДЛЯ JAPANESE (5 блюд) =====
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: image
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: image
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: image
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: image
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: image
+                  value: "2eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15.jpg"
+
+        # ===== ФОТО ДЛЯ AMERICAN (5 блюд) =====
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: image
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: image
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: image
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: image
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: image
+                  value: "3eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15.jpg"
+
+        # ===== ФОТО ДЛЯ MEXICAN (5 блюд) =====
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: image
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: image
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: image
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: image
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: image
+                  value: "4eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15.jpg"
+
+        # ===== ФОТО ДЛЯ INDIAN (5 блюд) =====
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: image
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: image
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: image
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: image
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: image
+                  value: "5eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15.jpg"
+
+        # ===== ФОТО ДЛЯ RUSSIAN (5 блюд) =====
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: image
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: image
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: image
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: image
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: image
+                  value: "6eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15.jpg"
+
+        # ===== ФОТО ДЛЯ CHINESE (5 блюд) =====
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: image
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: image
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: image
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: image
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: image
+                  value: "7eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15.jpg"
+
+        # ===== ФОТО ДЛЯ FRENCH (5 блюд) =====
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: image
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: image
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: image
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: image
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: image
+                  value: "8eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15.jpg"
+
+        # ===== ФОТО ДЛЯ THAI (5 блюд) =====
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11"
+              - column:
+                  name: image
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a11.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12"
+              - column:
+                  name: image
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a12.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13"
+              - column:
+                  name: image
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a13.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14"
+              - column:
+                  name: image
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a14.jpg"
+        - insert:
+            tableName: dish_images
+            columns:
+              - column:
+                  name: dish_id
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15"
+              - column:
+                  name: image
+                  value: "9eebc99a-9c0b-4ef8-bb6d-6bb9bd380a15.jpg"

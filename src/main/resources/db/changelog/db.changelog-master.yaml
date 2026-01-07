@@ -11,3 +11,16 @@ databaseChangeLog:
   - include:
       file: changeset/create-restaurant-images-table.yaml
       relativeToChangelogFile: true
+
+  - include:
+      file: insert/insert-restaurants-data.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: insert/insert-restaurants-images-data.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: insert/insert-dishes-data.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: insert/insert-dish-images-data.yaml
+      relativeToChangelogFile: true
